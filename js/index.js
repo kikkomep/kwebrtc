@@ -139,7 +139,7 @@ function registerStreamHandlers(streamAddress, addressId, outputElId, startId, s
 }
 
 window.addEventListener('load', function () {
-    registerStreamHandlers("rtsp://127.0.0.1:5454/microscope.flv", "address1", "videoOutput1", "start1", "stop1");
+    registerStreamHandlers("rtsp://127.0.0.1:5454/epx.flv", "address1", "videoOutput1", "start1", "stop1");
     registerStreamHandlers("rtsp://127.0.0.1:5454/microscope.flv", "address2", "videoOutput2", "start2", "stop2");
 });
 
