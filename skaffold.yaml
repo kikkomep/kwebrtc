@@ -1,0 +1,30 @@
+apiVersion: skaffold/v1beta1
+kind: Config
+build:
+  artifacts:
+  - image: changeme
+    context: .
+    docker: {}
+  tagPolicy:
+    envTemplate:
+      template: '{{.DOCKER_REGISTRY}}/kikkomep/kwebrtc:{{.VERSION}}'
+  local: {}
+deploy:
+  kubectl: {}
+profiles:
+- name: dev
+  build:
+    artifacts:
+    - docker: {}
+    tagPolicy:
+      envTemplate:
+        template: '{{.DOCKER_REGISTRY}}/kikkomep/kwebrtc:{{.DIGEST_HEX}}'
+    local: {}
+  deploy:
+    helm:
+      releases:
+      - name: kwebrtc
+        chartPath: charts/kwebrtc
+        setValueTemplates:
+          image.repository: '{{.DOCKER_REGISTRY}}/kikkomep/kwebrtc'
+          image.tag: '{{.DIGEST_HEX}}'
